@@ -1,0 +1,656 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: Montserrat;
+
+  /* bg-transparent bg-linear-to-t from-yellow-100 via-green-200 to-green-300 */
+}
+
+@layer base {
+  .image {
+    mask-image: url("src/components/pics/paint.jpg");
+    mask-repeat: no-repeat;
+    mask-size: cover;
+  }
+  .curve {
+    position: absolute;
+    height: 225px;
+    width: 100%;
+    bottom: 0;
+  }
+  .curve::before {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 100% 50%;
+    width: 55%;
+    height: 100%;
+    background-color: white;
+    transform: translate(85%, 60%);
+  }
+  .curve::after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 100% 50%;
+    width: 55%;
+    height: 100%;
+    background-color: blueviolet;
+    transform: translate(-4%, 40%);
+    z-index: -1;
+  }
+
+  .spacer {
+    aspect-ratio: 960/300;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  .layer1 {
+    background-image: url("/src/components/pics/wave.svg");
+  }
+  .layer2 {
+    background-image: url("/src/components/pics/wave2.svg");
+  }
+  .top1 {
+    --top: linear-gradient(#000 0 0) top/100% calc(100% - 50px) no-repeat,
+      radial-gradient(farthest-side, #000 98%, #0000) bottom/100px 100px
+        no-repeat;
+    -webkit-mask: var(--top);
+    mask: var(--top);
+  }
+  .bottom1 {
+    --bottom: radial-gradient(
+      calc(10px + 50px) at 50% -10px,
+      #9f676700 98%,
+      #000
+    );
+    -webkit-mask: var(--bottom);
+    mask: var(--bottom);
+    margin-top: -40px;
+  }
+  .top2 {
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      calc(50% + 4.14px + 50px) 100%,
+      50% calc(100% - 50px - 4.14px),
+      calc(50% - 4.14px - 50px) 100%,
+      0 100%
+    );
+  }
+  .bottom2 {
+    clip-path: polygon(
+      0 50px,
+      calc(50% - 50px) 50px,
+      50% 0,
+      calc(50% + 50px) 50px,
+      100% 50px,
+      100% 100%,
+      0 100%
+    );
+    margin-top: -40px;
+  }
+  /* HTML: <div class="wavy-line"></div> */
+  .wavy-line {
+    --s: 44px; /* size of the wave */
+    --b: 16px; /* thickness of the line */
+    --m: 0.4; /* curvature of the wave [0 2] */
+
+    background: white;
+    --R: calc(var(--s) * sqrt(var(--m) * var(--m) + 1) + var(--b) / 2);
+    height: calc(2 * var(--R));
+    width: 100%;
+    --_g: #0000 calc(99% - var(--b)), #000 calc(101% - var(--b)) 99%, #0000 101%;
+    mask: radial-gradient(
+          var(--R) at left 50% bottom calc(-1 * var(--m) * var(--s)),
+          var(--_g)
+        )
+        calc(50% - 2 * var(--s)) calc(50% - var(--s) / 2 - var(--b) / 2) /
+        calc(4 * var(--s)) calc(var(--s) + var(--b)) repeat-x,
+      radial-gradient(
+          var(--R) at left 50% top calc(-1 * var(--m) * var(--s)),
+          var(--_g)
+        )
+        50% calc(50% + var(--s) / 2 + var(--b) / 2) / calc(4 * var(--s))
+        calc(var(--s) + var(--b)) repeat-x;
+  }
+
+  .diagonal {
+    --skew-angle: 5deg;
+    position: relative;
+    isolation: isolate;
+  }
+  .diagonal::after {
+    content: "";
+    background-image: linear-gradient(
+      45deg,
+      rgb(31, 92, 197),
+      rgba(13, 0, 255, 0.945),
+      rgb(75, 111, 255)
+    );
+
+    position: absolute;
+    inset: 0;
+    transform: skewY(-5deg);
+    z-index: -1;
+  }
+  .diagonal2 {
+    --skew-angle: 5deg;
+    position: relative;
+    isolation: isolate;
+  }
+  .diagonal2::after {
+    content: "";
+    background-image: linear-gradient(45deg, #12c2e9, #c471ed, #f64f59);
+
+    position: absolute;
+    inset: 0;
+    transform: skewY(5deg);
+    z-index: -1;
+  }
+  .box {
+    background-image: linear-gradient(45deg, #12c2e9, #171431, #01389f);
+
+    mask: linear-gradient(0, #0000 60px, #000 0) 0 30px,
+      radial-gradient(30px, #000 calc(100% - 1px), #0000) 50%/55.5px 60px repeat
+        space;
+  }
+  .box2 {
+    --mask: radial-gradient(34.99px at 50% 48px, #000 99%, #0000 101%)
+        calc(50% - 60px) 0/120px 51% repeat-x,
+      radial-gradient(34.99px at 50% -18px, #0000 99%, #000 101%) 50% 30px/120px
+        calc(51% - 30px) repeat-x,
+      radial-gradient(34.99px at 50% calc(100% - 48px), #000 99%, #0000 101%)
+        calc(50% - 60px) 100%/120px 51% repeat-x,
+      radial-gradient(34.99px at 50% calc(100% + 18px), #0000 99%, #000 101%)
+        50% calc(100% - 30px) / 120px calc(51% - 30px) repeat-x;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+  }
+
+  .bgline {
+    background: black;
+    background-image: linear-gradient(
+        to right,
+        rgba(71, 85, 105, 0.3) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(71, 85, 105, 0.3) 1px, transparent 1px),
+      radial-gradient(
+        circle at 50% 50%,
+        rgba(139, 92, 246, 0.25) 0%,
+        rgba(139, 92, 246, 0.1) 40%,
+        transparent 80%
+      );
+    background-size: 32px 32px, 32px 32px, 100% 100%;
+  }
+  .bgline1 {
+    background: white;
+    background-image: linear-gradient(
+        to right,
+        rgba(71, 85, 105, 0.3) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(71, 85, 105, 0.3) 1px, transparent 1px),
+      radial-gradient(
+        circle at 50% 50%,
+        rgba(139, 92, 246, 0.25) 0%,
+        rgba(139, 92, 246, 0.1) 40%,
+        transparent 80%
+      );
+    background-size: 32px 32px, 32px 32px, 100% 100%;
+  }
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .cards .red {
+    background-color: #f43f5e;
+  }
+
+  .cards .blue {
+    background-color: #3b82f6;
+  }
+
+  .cards .green {
+    background-color: #22c55e;
+  }
+
+  .cards .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 100px;
+    width: 250px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms;
+  }
+
+  .cards .card p.tip {
+    font-size: 1em;
+    font-weight: 700;
+  }
+
+  .cards .card p.second-text {
+    font-size: 0.7em;
+  }
+
+  .cards .card:hover {
+    transform: scale(1.1, 1.1);
+  }
+
+  .cards:hover > .card:not(:hover) {
+    filter: blur(10px);
+    transform: scale(0.9, 0.9);
+  }
+  /* From Uiverse.io by SelfMadeSystem */
+  /*
+More comprehensive version at shenanigans.shoghisimon.ca/collection/css-rain-bg/
+ */
+
+  .container1::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: radial-gradient(
+      ellipse 1.5px 2px at 1.5px 50%,
+      #0000 0,
+      #0000 90%,
+      #000 100%
+    );
+    background-size: 25px 8px;
+  }
+
+  .container1 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    --c: #09f;
+    background-color: #000;
+    background-image: radial-gradient(4px 100px at 0px 235px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 235px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 117.5px, var(--c) 100%, #0000 150%),
+      radial-gradient(4px 100px at 0px 252px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 252px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 126px, var(--c) 100%, #0000 150%),
+      radial-gradient(4px 100px at 0px 150px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 150px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 75px, var(--c) 100%, #0000 150%),
+      radial-gradient(4px 100px at 0px 253px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 253px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 126.5px, var(--c) 100%, #0000 150%),
+      radial-gradient(4px 100px at 0px 204px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 204px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 102px, var(--c) 100%, #0000 150%),
+      radial-gradient(4px 100px at 0px 134px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 134px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 67px, var(--c) 100%, #0000 150%),
+      radial-gradient(4px 100px at 0px 179px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 179px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 89.5px, var(--c) 100%, #0000 150%),
+      radial-gradient(4px 100px at 0px 299px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 299px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 149.5px, var(--c) 100%, #0000 150%),
+      radial-gradient(4px 100px at 0px 215px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 215px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 107.5px, var(--c) 100%, #0000 150%),
+      radial-gradient(4px 100px at 0px 281px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 281px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 140.5px, var(--c) 100%, #0000 150%),
+      radial-gradient(4px 100px at 0px 158px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 158px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 79px, var(--c) 100%, #0000 150%),
+      radial-gradient(4px 100px at 0px 210px, var(--c), #0000),
+      radial-gradient(4px 100px at 300px 210px, var(--c), #0000),
+      radial-gradient(1.5px 1.5px at 150px 105px, var(--c) 100%, #0000 150%);
+    background-size: 300px 235px, 300px 235px, 300px 235px, 300px 252px,
+      300px 252px, 300px 252px, 300px 150px, 300px 150px, 300px 150px,
+      300px 253px, 300px 253px, 300px 253px, 300px 204px, 300px 204px,
+      300px 204px, 300px 134px, 300px 134px, 300px 134px, 300px 179px,
+      300px 179px, 300px 179px, 300px 299px, 300px 299px, 300px 299px,
+      300px 215px, 300px 215px, 300px 215px, 300px 281px, 300px 281px,
+      300px 281px, 300px 158px, 300px 158px, 300px 158px, 300px 210px,
+      300px 210px, 300px 210px;
+    animation: hi 150s linear infinite;
+  }
+
+  @keyframes hi {
+    0% {
+      background-position: 0px 220px, 3px 220px, 151.5px 337.5px, 25px 24px,
+        28px 24px, 176.5px 150px, 50px 16px, 53px 16px, 201.5px 91px, 75px 224px,
+        78px 224px, 226.5px 350.5px, 100px 19px, 103px 19px, 251.5px 121px,
+        125px 120px, 128px 120px, 276.5px 187px, 150px 31px, 153px 31px,
+        301.5px 120.5px, 175px 235px, 178px 235px, 326.5px 384.5px, 200px 121px,
+        203px 121px, 351.5px 228.5px, 225px 224px, 228px 224px, 376.5px 364.5px,
+        250px 26px, 253px 26px, 401.5px 105px, 275px 75px, 278px 75px,
+        426.5px 180px;
+    }
+
+    to {
+      background-position: 0px 6800px, 3px 6800px, 151.5px 6917.5px,
+        25px 13632px, 28px 13632px, 176.5px 13758px, 50px 5416px, 53px 5416px,
+        201.5px 5491px, 75px 17175px, 78px 17175px, 226.5px 17301.5px,
+        100px 5119px, 103px 5119px, 251.5px 5221px, 125px 8428px, 128px 8428px,
+        276.5px 8495px, 150px 9876px, 153px 9876px, 301.5px 9965.5px,
+        175px 13391px, 178px 13391px, 326.5px 13540.5px, 200px 14741px,
+        203px 14741px, 351.5px 14848.5px, 225px 18770px, 228px 18770px,
+        376.5px 18910.5px, 250px 5082px, 253px 5082px, 401.5px 5161px,
+        275px 6375px, 278px 6375px, 426.5px 6480px;
+    }
+  } /* From Uiverse.io by cssbuttons-io */
+  button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+  }
+
+  button.learn-more {
+    width: 12rem;
+    height: auto;
+  }
+
+  button.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #282936;
+    border-radius: 1.625rem;
+  }
+
+  button.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+  }
+
+  button.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+  }
+
+  button.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    right: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-right: 0.125rem solid #fff;
+    transform: rotate(45deg);
+  }
+
+  button.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    color: #ffffff;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  button:hover .circle {
+    width: 100%;
+  }
+
+  button:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(1rem, 0);
+  }
+
+  button:hover .button-text {
+    color: #fff;
+  }
+  /* From Uiverse.io by SouravBandyopadhyay */
+  .notification {
+    display: flex;
+    flex-direction: column;
+    isolation: isolate;
+    position: relative;
+    width: 18rem;
+    height: 8rem;
+    background: #29292c;
+    border-radius: 1rem;
+    overflow: hidden;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
+    font-size: 16px;
+    --gradient: linear-gradient(to bottom, #2eadff, #3d83ff, #7e61ff);
+    --color: #32a6ff;
+  }
+
+  .notification:before {
+    position: absolute;
+    content: "";
+    inset: 0.0625rem;
+    border-radius: 0.9375rem;
+    background: #18181b;
+    z-index: 2;
+  }
+
+  .notification:after {
+    position: absolute;
+    content: "";
+    width: 0.25rem;
+    inset: 0.65rem auto 0.65rem 0.5rem;
+    border-radius: 0.125rem;
+    background: var(--gradient);
+    transition: transform 300ms ease;
+    z-index: 4;
+  }
+
+  .notification:hover:after {
+    transform: translateX(0.15rem);
+  }
+
+  .notititle {
+    color: var(--color);
+    padding: 0.65rem 0.25rem 0.4rem 1.25rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: transform 300ms ease;
+    z-index: 5;
+  }
+
+  .notification:hover .notititle {
+    transform: translateX(0.15rem);
+  }
+
+  .notibody {
+    color: #99999d;
+    padding: 0 1.25rem;
+    transition: transform 300ms ease;
+    z-index: 5;
+  }
+
+  .notification:hover .notibody {
+    transform: translateX(0.25rem);
+  }
+
+  .notiglow,
+  .notiborderglow {
+    position: absolute;
+    width: 20rem;
+    height: 20rem;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      circle closest-side at center,
+      white,
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  .notiglow {
+    z-index: 3;
+  }
+
+  .notiborderglow {
+    z-index: 1;
+  }
+
+  .notification:hover .notiglow {
+    opacity: 0.1;
+  }
+
+  .notification:hover .notiborderglow {
+    opacity: 0.1;
+  }
+
+  .note {
+    color: var(--color);
+    position: fixed;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 0.9rem;
+    width: 75%;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes myAnim {
+  0% {
+    animation-timing-function: ease-in;
+    opacity: 0;
+    transform: translateY(-250px);
+  }
+
+  38% {
+    animation-timing-function: ease-out;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  55% {
+    animation-timing-function: ease-in;
+    transform: translateY(-65px);
+  }
+
+  72% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+
+  81% {
+    animation-timing-function: ease-in;
+    transform: translateY(-28px);
+  }
+
+  90% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+
+  95% {
+    animation-timing-function: ease-in;
+    transform: translateY(-8px);
+  }
+
+  100% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+}
+.myanim1 {
+  animation: myAnim 2s ease 0s 1 normal forwards;
+}
+.animatedslideInDown {
+  animation: slideInDown 2.1s ease-in 0s 1;
+}
+
+.animatedfadein3 {
+  animation: fadeIn 3s ease-in-out 0s 1;
+}
+
+.animated3 {
+  animation: slideInRight 2s ease 0.1s 1;
+}
+.animated4 {
+  animation: slideInRight 2s ease 0.3s 1;
+}
+.animated5 {
+  animation: slideInRight 1s ease 0s 1;
+}
+
+.animated1 {
+  animation: slideInLeft 1s ease 0s 1;
+}
