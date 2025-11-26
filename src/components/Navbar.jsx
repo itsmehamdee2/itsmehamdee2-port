@@ -16,7 +16,7 @@ const Navbar = () => {
             <a href="#" className="text-xl font-bold">
               <img
                 className="h-8 rounded-xl border bg-white"
-                src="./src/components/pics/h.png"
+                src="./h.png"
               />
             </a>
           </div>
