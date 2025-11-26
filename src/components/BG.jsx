@@ -11,7 +11,7 @@ const BG = () => {
               <div className="duration-500   h-48   hover:contrast-100">
                 <img
                   className="w-full max-md:w-sm object-cover shadow-[5px_0_10px_white]    h-full "
-                  src="./src/components/burger/deaam2.png"
+                  src="./components/burger/deaam2.png"
                 />
               </div>
               <div className="flex flex-col gap-4">
